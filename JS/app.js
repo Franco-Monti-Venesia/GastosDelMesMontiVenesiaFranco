@@ -1,6 +1,5 @@
 class ItemCarrito {
     constructor(nombre, precio, cantidad, categoria) {
-        // Validaciones para evitar agregar datos incorrectos
         if (!nombre || typeof nombre !== "string") throw new Error("Nombre inválido.");
         if (precio <= 0 || typeof precio !== "number") throw new Error("Precio inválido.");
         if (cantidad <= 0 || !Number.isInteger(cantidad)) throw new Error("Cantidad inválida.");
@@ -13,37 +12,32 @@ class ItemCarrito {
     }
 }
 
-// Inicializar variables y recuperar datos de localStorage
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 const form = document.getElementById("producto__form");
 const cartaItems = document.getElementById("carta__items");
 const cartaTotal = document.getElementById("carta__total");
 const limpiarCarritoBtn = document.getElementById("limpiar__carrito");
 const buscador = document.getElementById("buscador");
-const toggleTema = document.getElementById("toggle-tema");
-const temaIcono = document.getElementById("tema-icono");
+const toggleTema = document.getElementById("toggle__tema");
+const temaIcono = document.getElementById("tema__icono");
 
-// Elemento para mostrar mensajes de error
 const mensajeError = document.createElement("p");
 mensajeError.id = "mensaje-error";
 mensajeError.style.color = "red";
 form.appendChild(mensajeError);
 
-// Verificar si el tema oscuro estaba activo
 if (localStorage.getItem("tema") === "dark") {
-    document.body.classList.add("dark-mode");
-    temaIcono.textContent = "dark_mode"; // Cambiar al ícono de modo oscuro
+    document.body.classList.add("dark__mode");
+    temaIcono.textContent = "dark_mode";
 }
 
-// Cambiar tema
 toggleTema.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    const esOscuro = document.body.classList.contains("dark-mode");
-    temaIcono.textContent = esOscuro ? "dark_mode" : "light_mode"; // Cambiar ícono
-    localStorage.setItem("tema", esOscuro ? "dark" : "light"); // Guardar el tema en localStorage
+    document.body.classList.toggle("dark__mode");
+    const esOscuro = document.body.classList.contains("dark__mode");
+    temaIcono.textContent = esOscuro ? "dark_mode" : "light_mode";
+    localStorage.setItem("tema", esOscuro ? "dark" : "light");
 });
 
-// Función para actualizar la vista del carrito
 const actualizarCarrito = () => {
     cartaItems.innerHTML = "";
     let total = 0;
@@ -70,19 +64,16 @@ const actualizarCarrito = () => {
     guardarCarrito();
 };
 
-// Guardar el carrito en localStorage
 const guardarCarrito = () => {
     localStorage.setItem("carrito", JSON.stringify(carrito));
 };
 
-// Limpiar el carrito
 limpiarCarritoBtn.addEventListener("click", () => {
     carrito = [];
     guardarCarrito();
     actualizarCarrito();
 });
 
-// Buscador dinámico
 buscador.addEventListener("input", (e) => {
     const texto = e.target.value.toLowerCase();
     const filtrados = carrito.filter(item => item.nombre.toLowerCase().includes(texto));
@@ -94,18 +85,15 @@ buscador.addEventListener("input", (e) => {
     });
 });
 
-// Agregar productos al carrito
 form.addEventListener("submit", (event) => {
     event.preventDefault();
     
-    // Recoger los valores del formulario
     const nombre = document.getElementById("producto__nombre").value.trim();
     const precio = parseFloat(document.getElementById("producto__precio").value) || 0;
     const cantidad = parseInt(document.getElementById("producto__cantidad").value, 10) || 0;
     const categoria = document.getElementById("producto__categoria").value || "Sin Categoría";
 
     try {
-        // Comprobar si el producto ya existe en el carrito
         const productoExistente = carrito.find(item => item.nombre === nombre);
         
         if (productoExistente) {
@@ -114,15 +102,13 @@ form.addEventListener("submit", (event) => {
             carrito.push(new ItemCarrito(nombre, precio, cantidad, categoria));
         }
 
-        // Limpiar mensajes de error
         mensajeError.textContent = "";
 
         actualizarCarrito();
         form.reset();
     } catch (error) {
-        mensajeError.textContent = error.message; // Mostrar mensaje en el DOM
+        mensajeError.textContent = error.message;
     }
 });
 
-// Actualizar la vista inicial
 actualizarCarrito();

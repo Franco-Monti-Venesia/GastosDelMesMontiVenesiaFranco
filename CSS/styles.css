@@ -4,9 +4,9 @@ body {
     padding: 0;
     background-color: #f9f9f9;
     background-image: url(../img/fondoblanco.webp);
-    background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
@@ -147,32 +147,32 @@ button:hover {
     background-color: #333;
 }
 
-body.dark-mode {
+body.dark__mode {
     background-color: #333;
     color: #fff;
     background-image: url(../img/fondonegro.webp);
-    background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
-body.dark-mode .container {
+body.dark__mode .container {
     background: #444;
 }
 
-body.dark-mode header h1, body.dark-mode header h5, body.dark-mode section {
+body.dark__mode header h1, body.dark__mode header h5, body.dark__mode section {
     color: #fff;
 }
 
-body.dark-mode .tema__btn span {
+body.dark__mode .tema__btn span {
     color: #fff;
 }
 
-body.dark-mode .tema__btn:hover {
+body.dark__mode .tema__btn:hover {
     background-color: #fff;
 }
 
-body.dark-mode .tema__btn:hover span {
+body.dark__mode .tema__btn:hover span {
     color: #333;
 }
